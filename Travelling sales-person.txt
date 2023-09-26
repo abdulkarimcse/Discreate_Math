@@ -1,0 +1,56 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+#define NUM_STATES 50
+
+// Define the coordinates of the capitals (x, y)
+double coordinates[NUM_STATES][2] = {
+    {32.806671, -86.791130}, // Alabama
+    {61.370716, -152.404419}, // Alaska
+    {33.729759, -111.431221}, // Arizona
+    // Add coordinates for the remaining states
+};
+
+// Function to calculate the distance between two points
+double distance(double x1, double y1, double x2, double y2) {
+    return sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2));
+}
+
+int main() {
+    int visited[NUM_STATES] = {0}; // Array to keep track of visited states
+    int path[NUM_STATES]; // Array to store the final path
+    int current_state = 0; // Starting from the first state
+    visited[current_state] = 1;
+    path[0] = current_state;
+
+    for (int i = 1; i < NUM_STATES; i++) {
+        int nearest_state = -1;
+        double min_distance = -1;
+
+        for (int j = 0; j < NUM_STATES; j++) {
+            if (!visited[j]) {
+                double dist = distance(coordinates[current_state][0], coordinates[current_state][1], coordinates[j][0], coordinates[j][1]);
+                if (nearest_state == -1 || dist < min_distance) {
+                    nearest_state = j;
+                    min_distance = dist;
+                }
+            }
+        }
+
+        visited[nearest_state] = 1;
+        path[i] = nearest_state;
+        current_state = nearest_state;
+    }
+
+    // Printing the path
+    printf("Shortest Path:\n");
+    for (int i = 0; i < NUM_STATES; i++) {
+        printf("%d ", path[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+    

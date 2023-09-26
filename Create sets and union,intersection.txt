@@ -1,0 +1,66 @@
+#include <stdio.h>
+
+// Function to perform the union operation on two sets
+void unionSets(int set1[], int size1, int set2[], int size2) {
+    int unionSet[size1 + size2];
+    int i, j, k = 0;
+
+    // Add elements from the first set to the unionSet
+    for (i = 0; i < size1; i++) {
+        unionSet[k++] = set1[i];
+    }
+
+    // Check and add elements from the second set to the unionSet
+    for (i = 0; i < size2; i++) {
+        int isDuplicate = 0;
+        for (j = 0; j < size1; j++) {
+            if (set2[i] == set1[j]) {
+                isDuplicate = 1;
+                break;
+            }
+        }
+        if (!isDuplicate) {
+            unionSet[k++] = set2[i];
+        }
+    }
+
+    printf("Union of sets: { ");
+    for (i = 0; i < k; i++) {
+        printf("%d ", unionSet[i]);
+    }
+    printf("}\n");
+}
+
+// Function to perform the intersection operation on two sets
+void intersectionSets(int set1[], int size1, int set2[], int size2) {
+    int intersectionSet[size1];
+    int i, j, k = 0;
+
+    for (i = 0; i < size1; i++) {
+        for (j = 0; j < size2; j++) {
+            if (set1[i] == set2[j]) {
+                intersectionSet[k++] = set1[i];
+                break;
+            }
+        }
+    }
+
+    printf("Intersection of sets: { ");
+    for (i = 0; i < k; i++) {
+        printf("%d ", intersectionSet[i]);
+    }
+    printf("}\n");
+}
+
+int main() {
+    int set1[] = {1, 2, 3, 4, 5};
+    int size1 = 5;
+    
+    int set2[] = {3, 4, 5, 6, 7};
+    int size2 = 5;
+
+    unionSets(set1, size1, set2, size2);
+    intersectionSets(set1, size1, set2, size2);
+
+    return 0;
+}

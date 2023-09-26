@@ -1,0 +1,85 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+
+// Structure for a binary tree node
+struct TreeNode {
+    int data;
+    struct TreeNode* left;
+    struct TreeNode* right;
+};
+
+// Function to create a new tree node
+struct TreeNode* createNode(int item) {
+    struct TreeNode* newNode = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+    newNode->data = item;
+    newNode->left = newNode->right = NULL;
+    return newNode;
+}
+
+// Function to insert a new node into the tree
+struct TreeNode* insert(struct TreeNode* root, int item) {
+    if (root == NULL) {
+        return createNode(item);
+    }
+
+    if (item < root->data) {
+        root->left = insert(root->left, item);
+    } else if (item > root->data) {
+        root->right = insert(root->right, item);
+    }
+
+    return root;
+}
+
+// Function to search for an item in the tree
+struct TreeNode* search(struct TreeNode* root, int item) {
+    if (root == NULL || root->data == item) {
+        return root;
+    }
+
+    if (item < root->data) {
+        return search(root->left, item);
+    }
+
+    return search(root->right, item);
+}
+
+// Inorder traversal to print the tree
+void inorderTraversal(struct TreeNode* root) {
+    if (root != NULL) {
+        inorderTraversal(root->left);
+        printf("%d ", root->data);
+        inorderTraversal(root->right);
+    }
+}
+
+int main() {
+    struct TreeNode* root = NULL;
+    int itemToFindOrAdd = 42; // Replace with the item you want to locate or add
+
+    // Insert items into the tree
+    root = insert(root, 50);
+    insert(root, 30);
+    insert(root, 20);
+    insert(root, 40);
+    insert(root, 70);
+    insert(root, 60);
+    insert(root, 80);
+
+    // Search for the item
+    struct TreeNode* result = search(root, itemToFindOrAdd);
+
+    if (result) {
+        printf("%d found in the tree.\n", itemToFindOrAdd);
+    } else {
+        printf("%d not found in the tree. Adding it.\n", itemToFindOrAdd);
+        root = insert(root, itemToFindOrAdd);
+    }
+
+    printf("Inorder traversal of the tree: ");
+    inorderTraversal(root);
+    printf("\n");
+
+    return 0;
+}

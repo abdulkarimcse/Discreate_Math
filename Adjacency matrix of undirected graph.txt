@@ -1,0 +1,61 @@
+
+#include <stdio.h>
+#include <stdbool.h>
+
+#define MAX 100
+
+int adjMatrix[MAX][MAX];
+int visited[MAX];
+int N; // Number of vertices
+
+bool isCyclic(int v, int parent) {
+    visited[v] = 1; // Mark current vertex as visited
+    
+    for (int i = 0; i < N; i++) {
+        if (adjMatrix[v][i]) {
+            if (!visited[i]) {
+                if (isCyclic(i, v))
+                    return true;
+            } else if (i != parent) {
+                return true;
+            }
+        }
+    }
+    
+    return false;
+}
+
+bool isTree() {
+    for (int i = 0; i < N; i++) {
+        visited[i] = 0;
+    }
+    
+    if (isCyclic(0, -1)) // Check for cycles starting from vertex 0
+        return false;
+    
+    for (int i = 0; i < N; i++) {
+        if (!visited[i])
+            return false; // Not all vertices are reachable
+    }
+    
+    return true;
+}
+
+int main() {
+    printf("Enter the number of vertices: ");
+    scanf("%d", &N);
+    
+    printf("Enter the adjacency matrix:\n");
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            scanf("%d", &adjMatrix[i][j]);
+        }
+    }
+    
+    if (isTree())
+        printf("The graph is a tree.\n");
+    else
+        printf("The graph is not a tree.\n");
+    
+    return 0;
+}

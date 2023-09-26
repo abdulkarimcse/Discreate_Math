@@ -1,0 +1,51 @@
+
+#include <stdio.h>
+
+void findLongestIncreasingDecreasingSubsequence(int arr[], int n) {
+    int lis[n], lds[n];
+
+    for (int i = 0; i < n; i++) {
+        lis[i] = 1;
+        lds[i] = 1;
+    }
+
+    // Longest Increasing Subsequence
+    for (int i = 1; i < n; i++) {
+        for (int j = 0; j < i; j++) {
+            if (arr[i] > arr[j] && lis[i] < lis[j] + 1) {
+                lis[i] = lis[j] + 1;
+            }
+        }
+    }
+
+    // Longest Decreasing Subsequence
+    for (int i = n - 2; i >= 0; i--) {
+        for (int j = n - 1; j > i; j--) {
+            if (arr[i] > arr[j] && lds[i] < lds[j] + 1) {
+                lds[i] = lds[j] + 1;
+            }
+        }
+    }
+
+    int maxInc = 0, maxDec = 0;
+    for (int i = 0; i < n; i++) {
+        if (lis[i] > maxInc) {
+            maxInc = lis[i];
+        }
+        if (lds[i] > maxDec) {
+            maxDec = lds[i];
+        }
+    }
+
+    printf("Longest Increasing Subsequence Length: %d\n", maxInc);
+    printf("Longest Decreasing Subsequence Length: %d\n", maxDec);
+}
+
+int main() {
+    int arr[] = {5, 8, 3, 7, 9, 1};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    findLongestIncreasingDecreasingSubsequence(arr, n);
+
+    return 0;
+}

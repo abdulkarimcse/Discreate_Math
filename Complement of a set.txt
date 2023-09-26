@@ -1,0 +1,36 @@
+
+#include <stdio.h>
+
+int main() {
+    int universalSet[] = {1, 2, 3, 4, 5}; // Define your universal set
+    int setA[] = {2, 4}; // Define your set A
+
+    int n = sizeof(universalSet) / sizeof(universalSet[0]);
+    int m = sizeof(setA) / sizeof(setA[0]);
+
+    printf("Universal Set: ");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", universalSet[i]);
+    }
+
+    printf("\nSet A: ");
+    for (int i = 0; i < m; i++) {
+        printf("%d ", setA[i]);
+    }
+
+    printf("\nComplement of Set A: ");
+    for (int i = 0; i < n; i++) {
+        int isElementInSetA = 0;
+        for (int j = 0; j < m; j++) {
+            if (universalSet[i] == setA[j]) {
+                isElementInSetA = 1;
+                break;
+            }
+        }
+        if (!isElementInSetA) {
+            printf("%d ", universalSet[i]);
+        }
+    }
+
+    return 0;
+}

@@ -1,0 +1,75 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Function to calculate the Cartesian product of two sets
+void cartesianProduct(int set1[], int size1, int set2[], int size2) {
+    printf("Cartesian Product:\n");
+    for (int i = 0; i < size1; i++) {
+        for (int j = 0; j < size2; j++) {
+            printf("(%d, %d) ", set1[i], set2[j]);
+        }
+    }
+    printf("\n");
+}
+
+// Function to calculate the symmetric difference of two sets
+void symmetricDifference(int set1[], int size1, int set2[], int size2) {
+    printf("Symmetric Difference:\n");
+    printf("{ ");
+    for (int i = 0; i < size1; i++) {
+        int isUnique = 1;
+        for (int j = 0; j < size2; j++) {
+            if (set1[i] == set2[j]) {
+                isUnique = 0;
+                break;
+            }
+        }
+        if (isUnique) {
+            printf("%d ", set1[i]);
+        }
+    }
+    for (int i = 0; i < size2; i++) {
+        int isUnique = 1;
+        for (int j = 0; j < size1; j++) {
+            if (set2[i] == set1[j]) {
+                isUnique = 0;
+                break;
+            }
+        }
+        if (isUnique) {
+            printf("%d ", set2[i]);
+        }
+    }
+    printf("}\n");
+}
+
+int main() {
+    int size1, size2;
+
+    // Input size of the first set
+    printf("Enter the size of the first set: ");
+    scanf("%d", &size1);
+
+    // Input elements of the first set
+    int set1[size1];
+    printf("Enter elements of the first set:\n");
+    for (int i = 0; i < size1; i++) {
+        scanf("%d", &set1[i]);
+    }
+
+    // Input size of the second set
+    printf("Enter the size of the second set: ");
+    scanf("%d", &size2);
+
+    // Input elements of the second set
+    int set2[size2];
+    printf("Enter elements of the second set:\n");
+    for (int i = 0; i < size2; i++) {
+        scanf("%d", &set2[i]);
+    }
+
+    cartesianProduct(set1, size1, set2, size2);
+    symmetricDifference(set1, size1, set2, size2);
+
+    return 0;
+}

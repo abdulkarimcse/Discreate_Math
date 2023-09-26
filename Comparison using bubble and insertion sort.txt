@@ -1,0 +1,48 @@
+#include <stdio.h>
+
+// Function to perform Bubble Sort and count comparisons
+int bubbleSort(int arr[], int n) {
+    int comparisons = 0;
+    for (int i = 0; i < n ; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            comparisons++;
+            if (arr[j] > arr[j + 1]) {
+                // Swap the elements
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+    return comparisons;
+}
+
+// Function to perform Intersection Sort and count comparisons
+int intersectionSort(int arr[], int n) {
+    int comparisons = 0;
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = i + 1; j < n; j++) {
+            comparisons++;
+            if (arr[i] > arr[j]) {
+                // Swap the elements
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+    }
+    return comparisons;
+}
+
+int main() {
+    int arr[] = {5, 2, 9, 3, 1};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    int bubbleComparisons = bubbleSort(arr, n);
+    printf("Bubble Sort Comparisons: %d\n", bubbleComparisons);
+
+    int intersectionComparisons = intersectionSort(arr, n);
+    printf("Intersection Sort Comparisons: %d\n", intersectionComparisons);
+
+    return 0;
+}

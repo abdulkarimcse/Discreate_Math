@@ -1,0 +1,77 @@
+
+#include <stdio.h>
+
+int main() {
+    int numSuits = 4;
+    int numRanks = 13;
+    int totalHands = 2598960; // Total possible 5-card hands
+
+    // Initialize variables to count each hand type
+    int straightFlush = 0;
+    int fourOfAKind = 0;
+    int fullHouse = 0;
+    int flush = 0;
+    int straight = 0;
+    int threeOfAKind = 0;
+    int twoPair = 0;
+    int onePair = 0;
+    int highCard = 0;
+
+    // Loop through all possible combinations of 5 cards
+    for (int card1 = 1; card1 <= numRanks; card1++) {
+        for (int card2 = card1 + 1; card2 <= numRanks; card2++) {
+            for (int card3 = card2 + 1; card3 <= numRanks; card3++) {
+                for (int card4 = card3 + 1; card4 <= numRanks; card4++) {
+                    for (int card5 = card4 + 1; card5 <= numRanks; card5++) {
+                        // Check for each hand type and increment the corresponding counter
+                        int isStraight = (card5 - card1 == 4);
+                        int isFlush = (card1 % numSuits == card2 % numSuits &&
+                                       card1 % numSuits == card3 % numSuits &&
+                                       card1 % numSuits == card4 % numSuits &&
+                                       card1 % numSuits == card5 % numSuits);
+                        
+                        if (isStraight && isFlush) {
+                            straightFlush++;
+                        } else if (card1 % numSuits == card2 % numSuits &&
+                                   card1 % numSuits == card3 % numSuits &&
+                                   card1 % numSuits == card4 % numSuits) {
+                            flush++;
+                        } else if (isStraight) {
+                            straight++;
+                        } else if (card1 == card2 && card1 == card3 && card1 == card4 ||
+                                   card2 == card3 && card2 == card4 && card2 == card5) {
+                            fourOfAKind++;
+                        } else if ((card1 == card2 && card1 == card3 && card4 == card5) ||
+                                   (card1 == card2 && card3 == card4 && card3 == card5)) {
+                            fullHouse++;
+                        } else if (card1 == card2 && card1 != card3 && card1 != card4 && card1 != card5 ||
+                                   card2 == card3 && card2 != card1 && card2 != card4 && card2 != card5 ||
+                                   card3 == card4 && card3 != card1 && card3 != card2 && card3 != card5 ||
+                                   card4 == card5 && card4 != card1 && card4 != card2 && card4 != card3) {
+                            onePair++;
+                        } else if ((card1 == card2 && card3 == card4 && card1 != card3 && card1 != card5 && card3 != card5) ||
+                                   (card1 == card2 && card4 == card5 && card1 != card4 && card1 != card3 && card4 != card3) ||
+                                   (card2 == card3 && card4 == card5 && card2 != card4 && card2 != card1 && card4 != card1)) {
+                            twoPair++;
+                        } else {
+                            highCard++;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Calculate and print probabilities
+    printf("Straight Flush: %.10f%%\n", (double)straightFlush / totalHands * 100);
+    printf("Four of a Kind: %.10f%%\n", (double)fourOfAKind / totalHands * 100);
+    printf("Full House: %.10f%%\n", (double)fullHouse / totalHands * 100);
+    printf("Flush: %.10f%%\n", (double)flush / totalHands * 100);
+    printf("Straight: %.10f%%\n", (double)straight / totalHands * 100);
+    printf("Three of a Kind: %.10f%%\n", (double)threeOfAKind / totalHands * 100);
+    printf("Two Pair: %.10f%%\n", (double)twoPair / totalHands * 100);
+    printf("One Pair: %.10f%%\n", (double)onePair / totalHands * 100);
+    printf("High Card: %.10f%%\n", (double)highCard / totalHands * 100);
+
+    return 0;
+}

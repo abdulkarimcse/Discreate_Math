@@ -1,0 +1,20 @@
+#include <stdio.h>
+
+int main() {
+    int p = 1;  // 1 represents true
+    int q = 0;  // 0 represents false
+
+    int conjunction = p && q;
+    int disjunction = p || q;
+    int exclusive_or = (p || q) && !(p && q);
+    int conditional = !p || q;
+    int biconditional = (p && q) || (!p && !q);
+
+    printf("Conjunction (p && q): %d\n", conjunction);
+    printf("Disjunction (p || q): %d\n", disjunction);
+    printf("Exclusive Or (p XOR q): %d\n", exclusive_or);
+    printf("Conditional (p -> q): %d\n", conditional);
+    printf("Biconditional (p <-> q): %d\n", biconditional);
+
+    return 0;
+}

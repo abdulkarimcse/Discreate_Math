@@ -1,0 +1,41 @@
+
+#include <stdio.h>
+
+// Function to calculate the factorial of a number
+int factorial(int num) {
+    if (num <= 1)
+        return 1;
+    return num * factorial(num - 1);
+}
+
+// Function to calculate r-permutations
+int permutations(int n, int r) {
+    return factorial(n) / factorial(n - r);
+}
+
+// Function to calculate r-combinations
+int combinations(int n, int r) {
+    return factorial(n) / (factorial(r) * factorial(n - r));
+}
+
+int main() {
+    int n, r;
+
+    printf("Enter the value of n: ");
+    scanf("%d", &n);
+
+    printf("Enter the value of r (not exceeding n): ");
+    scanf("%d", &r);
+
+    if (r <= n) {
+        int nPermutations = permutations(n, r);
+        int nCombinations = combinations(n, r);
+
+        printf("%d-permutations: %d\n", r, nPermutations);
+        printf("%d-combinations: %d\n", r, nCombinations);
+    } else {
+        printf("Invalid input: r cannot exceed n.\n");
+    }
+
+    return 0;
+}

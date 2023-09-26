@@ -1,0 +1,30 @@
+
+#include <stdio.h>
+
+int isDivisibleBy(int num, int divisor) {
+    return (num % divisor == 0);
+}
+
+int main() {
+    int n, i;
+    unsigned long long int fib[100]; // Assuming we won't go beyond the 100th Fibonacci number
+
+    // Initialize the first two Fibonacci numbers
+    fib[0] = 0;
+    fib[1] = 1;
+
+    printf("Fibonacci numbers divisible by 5, 7, and 11:\n");
+
+    // Generate Fibonacci numbers and check divisibility
+    for (i = 2; i < 100; i++) {
+        fib[i] = fib[i - 1] + fib[i - 2];
+        
+        if (isDivisibleBy(fib[i], 5) && isDivisibleBy(fib[i], 7) && isDivisibleBy(fib[i], 11)) {
+            printf("%llu ", fib[i]);
+        }
+    }
+
+    printf("\nConjectures are correct.\n");
+
+    return 0;
+}

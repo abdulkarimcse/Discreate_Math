@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+void generatePowerSet(char set[], int n, int index, char currentSet[], int currentSize) {
+    if (index == n) {
+        // Print the current subset
+        printf("{ ");
+        for (int i = 0; i < currentSize; i++) {
+            printf("%c ", currentSet[i]);
+        }
+        printf("}\n");
+        return;
+    }
+
+    // Include the current element in the subset
+    currentSet[currentSize] = set[index];
+    generatePowerSet(set, n, index + 1, currentSet, currentSize + 1);
+
+    // Exclude the current element from the subset
+    generatePowerSet(set, n, index + 1, currentSet, currentSize);
+}
+
+int main() {
+    char set[] = {'a', 'b', 'c'};
+    int n = sizeof(set) / sizeof(set[0]);
+    char currentSet[n];
+
+    generatePowerSet(set, n, 0, currentSet, 0);
+
+    return 0;
+}
